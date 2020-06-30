@@ -19,10 +19,13 @@ export default {
     fileSize: 2 * 1024 * 1024, // 2 MB
   },
   fileFilter: (request: any, file: any, cb: any): void => {
-    if (file.mimetype === 'text/csv') {
+    if (
+      file.mimetype === 'text/csv' ||
+      file.mimetype === 'application/vnd.ms-excel'
+    ) {
       cb(null, true);
     } else {
-      cb(new AppError('Invalid csv file'));
+      cb(new AppError(`Invalid csv file: ${file.mimetype}`));
     }
   },
 };
